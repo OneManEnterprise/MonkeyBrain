@@ -1,3 +1,5 @@
+//@require https://raw.githubusercontent.com/OneManEnterprise/MonkeyBrain/main/helpers.js
+
 /****************************************************************************************************\
 | ADDRESSES                                                                                           |
 \****************************************************************************************************/
@@ -15,4 +17,13 @@ function now(){console.log("performance.now(): " + performance.now())}
 
 function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
-
+function dSelect(query){
+    console.debug("query: " + query); 
+    console.debug("document.querySelector(query): " + document.querySelector(query));
+    return document.querySelector(query);
+}
+function dSelectAll(query){
+  console.debug("query: " + query); 
+  document.querySelectorAll(query).forEach(el => console.debug(el));
+  return document.querySelectorAll(query);
+}
