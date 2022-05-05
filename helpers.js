@@ -40,4 +40,6 @@ async function qqSelect(query){
         element = qSelect(query);
         await wait(waitMillis);
         iteration++;
+    }
+    return element;
 }
