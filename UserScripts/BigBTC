@@ -1,0 +1,148 @@
+// ==UserScript==
+// @name         BigBTC
+// @namespace    http://tampermonkey.net/
+// @version      1
+// @description  try to take over the world!
+// @author       You
+// @match        https://bigbtc.win/*
+// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @grant        none
+// ==/UserScript==
+
+//Block All Pop ups
+//unsafeWindow.open = function(){};
+
+(function() {
+    'use strict';
+
+    // Your code here...
+    //let querySubmit = qSelect("input[type='submit']");
+    const bitcoinAddr = "3QcD5ZTyWFE6zn8A7KKwn4HLRq5k2dhbuS";
+
+    const loginURL = 'https://bigbtc.win/';
+    const faucetURL = 'https://bigbtc.win/faucet';
+
+    const qloginAddr = "input[name='address']";
+    const qloginBtn = "input[type='submit']";
+    const qhcaptcha = "iframe[data-hcaptcha-widget-id]";
+    const qclaimBtn = "#claimbutn";
+    const qclaimed = ".alert-success";
+
+    const seconds = 2*1000;
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    //const addCSS = css => {document.head.appendChild(document.createElement("style")).innerHTML=css};
+    //const css = "outline:green solid 10px;";
+    //const notcss = "outline:white;";
+
+    setInterval(bigbtc(), 5*60*1000);
+    async function bigbtc(){
+        console.info("function bigbtc #####");
+
+        login();
+        faucet();
+    }
+
+    async function login(){
+        console.info("function login #####");
+
+        let isLogin = window.location.href == loginURL;
+        console.debug("isLogin: " + isLogin);
+        if(!isLogin) return;
+
+        let loginAddr = qSelect(qloginAddr);
+        while(!loginAddr){
+            loginAddr = qSelect(qloginAddr);
+            await delay(seconds);
+            console.log("waiting for loginAddr" + + " " + seconds/1000 + "s");
+        }
+        console.debug("loginAddr: " + loginAddr);
+        if(!loginAddr) return;
+
+        loginAddr.value = bitcoinAddr;
+        console.debug("loginAddr.value: " + loginAddr.value);
+
+        //querySubmit
+        let loginBtn = qSelect(qloginBtn);
+        while(!loginBtn){
+            loginBtn = qSelect(qloginBtn);
+            await delay(seconds);
+            console.log("waiting for loginBtn" + + " " + seconds/1000 + "s");
+        }
+        console.debug("loginBtn: " + loginBtn);
+        loginBtn.click();
+    }
+
+    function faucet(){
+        console.info("function faucet #####");
+
+        let isFaucet = window.location.href == faucetURL;
+        console.debug("isFaucet: " + isFaucet);
+        if(!isFaucet) return;
+
+        captchaSolver();
+    }
+
+    async function captchaSolver(){
+        console.info("function captchaSolver #####");
+
+        let hcaptcha = qSelect(qhcaptcha);
+        while(!hcaptcha){
+            hcaptcha = qSelect(qhcaptcha);
+            await delay(seconds);
+            console.log("waiting hcaptcha" + " " + seconds/1000 + "s");
+        }
+        console.debug("hcaptcha: " + hcaptcha);
+
+        if(!hcaptcha) return;
+        scrollIntoMidView(hcaptcha);
+        //if(hcaptcha.getAttribute("data-hcaptcha-response").length < 1) return;
+        while(hcaptcha.getAttribute("data-hcaptcha-response").length < 1){
+            await delay(seconds);
+            console.log("waiting hcaptcha response" + " " + seconds/1000 + "s");
+        }
+        console.debug("hcaptcha response: " + hcaptcha.getAttribute("data-hcaptcha-response").length);
+        claim();
+    }
+
+    async function claim(){
+        console.info("function captchaSolver #####");
+
+        //querySubmit
+        let claimBtn = qSelect(qclaimBtn);
+        while(!claimBtn){
+            claimBtn = qSelect(qclaimBtn);
+            await delay(seconds);
+            console.log("waiting claimBtn" + " " + seconds/1000 + "s");
+        }
+        console.debug("claimBtn: " + claimBtn);
+        scrollIntoMidView(claimBtn);
+
+        claimBtn.click();
+
+        let claimed = qSelect(qclaimed);
+        while(!claimed){
+            claimed = qSelect(qclaimed);
+            await delay(seconds);
+            console.log("waiting claimed" + " " + seconds/1000 + "s");
+        }
+        console.debug("claimed: " + claimed);
+        if(!claimed) console.error("Not claimed");
+        scrollIntoMidView(claimed);
+
+        await delay(5*60*1000);
+        location.reload();
+    }
+
+    function scrollIntoMidView(element) {
+        const elementRect = element.getBoundingClientRect();
+        const scrollTopOfElement = elementRect.top + elementRect.height / 2;
+        const scrollY = scrollTopOfElement - (window.innerHeight / 2);
+        window.scrollTo(0, scrollY);
+  }
+
+    async function delay(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
+
+    function qSelect(query){return document.querySelector(query);}
+    function qSelectAll(query){return document.querySelectorAll(query);}
+})();
