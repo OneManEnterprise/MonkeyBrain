@@ -34,16 +34,6 @@ function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
-function dSelect(query){
-    console.debug("query: " + query); 
-    console.debug("document.querySelector(query): " + document.querySelector(query));
-    return document.querySelector(query);
-}
-function dSelectAll(query){
-  console.debug("query: " + query); 
-  document.querySelectorAll(query).forEach(el => console.debug(el));
-  return document.querySelectorAll(query);
-}
 async function qqSelect(query){
     console.debug("query: " + query);
   
