@@ -17,7 +17,7 @@ const ZCASH ="t1XmjzKxe1ndY6sruWrBu828j4XESfq22FA";
 const Q_HCAPTCHA = "iframe[data-hcaptcha-widget-id]";
 const BTN = "button";
 const IN = "input";
-const ADDR = "[name='address']";ADDRESSES
+const ADDR = "[name='address']";
 const SUB = "[type='submit']";
 const ID_SUB = "#submit";
 
@@ -31,6 +31,8 @@ let waitIterations = 10;
 
 function now(){console.log("performance.now(): " + performance.now())}
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
+function isAtUrl(url){ return window.location.href == url}
+function containsUrl(url){ return window.location.href.includes(url)}
 
 function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
