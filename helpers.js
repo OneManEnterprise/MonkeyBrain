@@ -55,7 +55,7 @@ async function click(query){
 }
 
 async function waitHCaptcha(){
-    let hcaptcha = qqSelect(Q_HCAPTCHA);
+    let hcaptcha = await qqSelect(Q_HCAPTCHA);
     while(hcaptcha.getAttribute("data-hcaptcha-response").length < 1){
         await wait(waitMillis);
         console.log("waiting hcaptcha response " + waitMillis/1000 + "s");
