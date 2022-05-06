@@ -23,6 +23,7 @@ const ID_SUB = "#submit";
 
 const Q_BTN_SUB = BTN + SUB;
 const Q_BTN_ID_SUB = BTN + ID_SUB;
+const Q_IN_SUB = IN + SUB;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //TODO var vs let
