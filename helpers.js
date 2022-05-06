@@ -39,14 +39,14 @@ function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
 async function qqSelect(query){
     console.debug("query: " + query);
-  
-    for(let i = 0; i < waitIterations; i++){
-        let element = qSelect(query);
-        if(element) {
-            console.debug("element: " + element);
-            return element;
-        }
+
+    let element;
+    while(!element){
+        element = qSelect(query);
+        await(waitMillis);
     }
+    console.debug("element: " + element);
+    return element;
 }
 
 async function click(query){
