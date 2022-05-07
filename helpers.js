@@ -20,12 +20,12 @@ const Q_IN = "input";
 const Q_ADDR = "[name='address']";
 const Q_SUB = "[type='submit']";
 
-const Q_BTN_SUB = BTN + SUB;
-const Q_BTN_ID_SUB = BTN + ID_SUB;
-const Q_IN_SUB = IN + SUB;
+const Q_BTN_SUB = Q_BTN + Q_SUB;
+//const Q_BTN_ID_SUB = Q_BTN + Q_ID_SUB;
+const Q_IN_SUB = Q_IN + Q_SUB;
 
 //IDS
-const ID_SUB = "#submit";
+const Q_ID_SUB = "#submit";
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 let waitMillis= 2*1000;
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
