@@ -61,3 +61,7 @@ async function waitHCaptcha(){
         console.log("waiting hcaptcha response " + waitMillis/1000 + "s");
     }
 }
+
+//const addCSS = css => {document.head.appendChild(document.createElement("style")).innerHTML=css};
+//const css = "outline:green solid 10px;";
+//const notcss = "outline:white;";
