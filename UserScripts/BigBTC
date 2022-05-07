@@ -31,9 +31,7 @@
     const seconds = 2*1000;
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
-    //const addCSS = css => {document.head.appendChild(document.createElement("style")).innerHTML=css};
-    //const css = "outline:green solid 10px;";
-    //const notcss = "outline:white;";
+    
 
     setInterval(bigbtc(), 5*60*1000);
     async function bigbtc(){
