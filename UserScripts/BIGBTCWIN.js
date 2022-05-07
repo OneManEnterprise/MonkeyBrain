@@ -7,7 +7,7 @@
 // @match        https://bigbtc.win/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
-//@require https://raw.githubusercontent.com/OneManEnterprise/MonkeyBrain/main/helpers.js
+//@require       https://raw.githubusercontent.com/OneManEnterprise/MonkeyBrain/main/helpers.js
 
 // ==/UserScript==
 
@@ -32,14 +32,15 @@
         if(!isAtUrl(URL_BIG_LOGIN)) return;
 
         //TODO Promise-Then
-        //let loginAddr = await qqSelect(Q_ADDR);
-        //loginAddr.value = ADDR_BITCOIN;
-        await qqSelect(Q_ADDR).value = ADDR_BITCOIN;
+        let loginAddr = await qqSelect(Q_ADDR);
+        loginAddr.value = ADDR_BITCOIN;
+        
         await click(Q_SUB);
     }
 
     async function faucet(){
         if(!isAtUrl(URL_BIG_FAUCET)) return;
+        
         await waitHCaptcha();
         await claim();
     }
@@ -47,7 +48,9 @@
     async function claim(){
         await click(Q_SUB);
         await qqSelect(Q_SUCCESS);
+        
         await wait(5*MINUTES);
+        
         location.reload();
     }
 
