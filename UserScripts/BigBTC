@@ -140,7 +140,6 @@
   }
 
     async function delay(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
-
     function qSelect(query){return document.querySelector(query);}
     function qSelectAll(query){return document.querySelectorAll(query);}
 })();
