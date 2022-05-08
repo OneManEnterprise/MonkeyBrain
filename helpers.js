@@ -41,7 +41,7 @@ async function qqSelect(query){
     let element;
     while(!element){
         element = qSelect(query);
-        await(waitMillis);
+        await wait(waitMillis);
     }
     console.debug("element: " + element);
     return element;
