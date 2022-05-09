@@ -26,13 +26,19 @@ const Q_IN_SUB = Q_IN + Q_SUB;
 
 //IDS
 const Q_ID_SUB = "#submit";
+
+//TIME
+const HOUR = 60 * MINUTE;
+const MINUTE = 60 * SECOND;
+const SECOND = 1 * MILLIS;
+const MILLIS = 1000;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-let waitMillis= 2*1000;
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function isAtUrl(url){ return window.location.href == url}
 function containsUrl(url){ return window.location.href.includes(url)}
 
+function click(query){qqSelect(query).then(element => { element.click()})}
 function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
 async function qqSelect(query){
@@ -44,12 +50,7 @@ async function qqSelect(query){
         await wait(waitMillis);
     }
     console.debug("element: " + element);
-    return element;
-}
-
-async function click(query){
-    let element = await qqSelect(query);
-    element.click();
+    return Promise.resolve(element);
 }
 
 async function waitHCaptcha(){
