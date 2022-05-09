@@ -39,7 +39,7 @@ const WAIT_ELEMENT = 3 * SECOND;
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function isAtUrl(url){ return window.location.href == url}
-function containsUrl(url){ return window.location.href.includes(url)}
+function isIncludedInUrl(url){ return window.location.href.includes(url)}
 
 function click(query){qqSelect(query).then(element => { element.click()})}
 function qSelect(query){return document.querySelector(query)}
