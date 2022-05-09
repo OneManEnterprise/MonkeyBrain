@@ -53,7 +53,7 @@ async function qqSelect(query){
         await wait(WAIT_ELEMENT);
     }
     console.debug("element: " + element);
-    return Promise.resolve(element);
+    return element;
 }
 
 async function waitHCaptcha(){
