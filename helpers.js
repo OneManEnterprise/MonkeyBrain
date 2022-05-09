@@ -14,16 +14,35 @@ const ADDR_SOLANA ="3knrCxQPrjaDrX87uAbGmzLL2GcEGAntddeQWqAwCTuY";
 const ADDR_ZCASH ="t1XmjzKxe1ndY6sruWrBu828j4XESfq22FA";
 
 //CRYPTO
-const BCH = "bitcoincash";
-const BTC = "bitcoin";
+const COIN_BCH = "bitcoincash";
+const COIN_BTC = "bitcoin";
+const COIN_DASH = "dash";
+const COIN_DOGE = "dogecoin";
+const COIN_ETH = "ethereum";
+const COIN_LTC = "litecoin";
+const COIN_SOL = "solana";
+const COIN_ZEC = "zcash";
+
+//CRYPTO COIN
+const BTC = "btc";
+const BCH = "bch";
 const DASH = "dash";
-const DOGE = "dogecoin";
-const ETH = "ethereum";
-const LTC = "litecoin";
-const SOL = "solana";
-const ZEC = "zcash";
+const DOGE = "doge";
+const EHT = "eth";
+const LTC = "ltc";
+const SOL = "sol";
+const ZEC = "ZEC";
 
 let coinMap = new Map([
+  [COIN_BTC, ADDR_BITCOIN],
+  [COIN_BCH, ADDR_BITCOINCASH],
+  [COIN_DASH, ADDR_DASH],
+  [COIN_DOGE, ADDR_DOGECOIN],
+  [COIN_ETH, ADDR_ETHEREUM],
+  [COIN_LTC, ADDR_LITECOIN],
+  [COIN_SOL, ADDR_SOLANA],
+  [COIN_ZEC, ADDR_ZCASH],
+  
   [BTC, ADDR_BITCOIN],
   [BCH, ADDR_BITCOINCASH],
   [DASH, ADDR_DASH],
