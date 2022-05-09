@@ -67,3 +67,10 @@ async function waitHCaptcha(){
 //const addCSS = css => {document.head.appendChild(document.createElement("style")).innerHTML=css};
 //const css = "outline:green solid 10px;";
 //const notcss = "outline:white;";
+
+function scrollIntoMidView(element) {
+        const elementRect = element.getBoundingClientRect();
+        const scrollTopOfElement = elementRect.top + elementRect.height / 2;
+        const scrollY = scrollTopOfElement - (window.innerHeight / 2);
+        window.scrollTo(0, scrollY);
+}
