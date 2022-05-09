@@ -1,4 +1,4 @@
-//@require       https://raw.githubusercontent.com/OneManEnterprise/MonkeyBrain/main/helpers.js
+// @require       https://raw.githubusercontent.com/OneManEnterprise/MonkeyBrain/main/helpers.js
 
 /****************************************************************************************************\
 | CONSTANTS                                                                                           |
