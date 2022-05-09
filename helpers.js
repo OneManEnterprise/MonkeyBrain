@@ -32,6 +32,9 @@ const HOUR = 60 * MINUTE;
 const MINUTE = 60 * SECOND;
 const SECOND = 1 * MILLIS;
 const MILLIS = 1000;
+
+const WAIT_HCAPTCHA = 5 * SECOND;
+const WAIT_ELEMENT = 3 * SECOND;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
@@ -47,7 +50,7 @@ async function qqSelect(query){
     let element;
     while(!element){
         element = qSelect(query);
-        await wait(waitMillis);
+        await wait(WAIT_ELEMENT);
     }
     console.debug("element: " + element);
     return Promise.resolve(element);
@@ -56,8 +59,8 @@ async function qqSelect(query){
 async function waitHCaptcha(){
     let hcaptcha = await qqSelect(Q_HCAPTCHA);
     while(hcaptcha.getAttribute("data-hcaptcha-response").length < 1){
-        await wait(waitMillis);
-        console.log("waiting hcaptcha response " + waitMillis/1000 + "s");
+        await wait(WAIT_HCAPTCHA);
+        console.log("waiting hcaptcha response " + WAIT_HCAPTCHA/MILLIS + "s");
     }
 }
 
