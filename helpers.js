@@ -82,8 +82,9 @@ function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function isAtUrl(url){ return window.location.href == url}
 function isIncludedInUrl(url){ return window.location.href.includes(url)}
+function gotoUrl(url){window.location.href = url}
 
-function click(query){qqSelect(query).then(element => { element.click()})}
+function click(query){qqSelect(query).then(element => {element.click()})}
 function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
 async function qqSelect(query){
@@ -110,7 +111,7 @@ String.prototype.nthLastIndexOf = function(searchString, n){
       if(this === null) return -1;
       if(!n || isNaN(n) || n <= 1)return this.lastIndexOf(searchString);
       return this.lastIndexOf(searchString, this.nthLastIndexOf(searchString, --n) - 1);
-  }
+}
 
 //const addCSS = css => {document.head.appendChild(document.createElement("style")).innerHTML=css};
 //const css = "outline:green solid 10px;";
