@@ -5,13 +5,34 @@
 \****************************************************************************************************/
 //ADDRESSES
 const ADDR_BITCOIN="3QcD5ZTyWFE6zn8A7KKwn4HLRq5k2dhbuS";
-const ADDR_BITCOIN_CASH ="qzcpvtkka6tnvvvp88qtnmz33kmgf79r9slrtvy82s";
+const ADDR_BITCOINCASH ="qzcpvtkka6tnvvvp88qtnmz33kmgf79r9slrtvy82s";
 const ADDR_DASH ="Xbnj3vtVXUnEye8ERBaR2M7dXj8fysnVCo";
 const ADDR_DOGECOIN ="D8TKc74V8jFzBFuWpxKyYdaCRRBUxmzjEz";
 const ADDR_ETHEREUM ="0x2fA59Be2Ee252675937e453C5324De1F8849eDb3";
 const ADDR_LITECOIN ="MSgS1PYbQD54h1d4as7VZHRpvtNnPdCUDT";
 const ADDR_SOLANA ="3knrCxQPrjaDrX87uAbGmzLL2GcEGAntddeQWqAwCTuY";
 const ADDR_ZCASH ="t1XmjzKxe1ndY6sruWrBu828j4XESfq22FA";
+
+//CRYPTO
+const BTC = "bitcoin";
+const BCH = "bitcoin_cash";
+const DASH = "dash";
+const DOGE = "dogecoin";
+const ETH = "ethereum";
+const LTC = "litecoin";
+const SOL = "solana";
+const ZEC = "zcash";
+
+let coinMap = new Map([
+  [BTC, ADDR_BITCOIN],
+  [BCH, ADDR_BITCOINCASH],
+  [DASH, ADDR_DASH],
+  [DOGE, ADDR_DOGECOIN],
+  [ETH, ADDR_ETHEREUM],
+  [LTC, ADDR_LITECOIN],
+  [SOL, ADDR_SOLANA],
+  [ZEC, ADDR_ZCASH],
+])
 
 //QUERIES
 const Q_HCAPTCHA = "iframe[data-hcaptcha-widget-id]";
