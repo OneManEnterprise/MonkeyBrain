@@ -50,7 +50,7 @@ let coinMap = new Map([
   [ETH, ADDR_ETHEREUM],
   [LTC, ADDR_LITECOIN],
   [SOL, ADDR_SOLANA],
-  [ZEC, ADDR_ZCASH],
+  [ZEC, ADDR_ZCASH]
 ]);
 
 function isBitcoinCash(string){return string.includes("bitcoin") && string.includes("cash")}
