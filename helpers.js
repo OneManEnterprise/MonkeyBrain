@@ -28,10 +28,10 @@ const Q_IN_SUB = Q_IN + Q_SUB;
 const Q_ID_SUB = "#submit";
 
 //TIME
-const HOUR = 60 * MINUTE;
-const MINUTE = 60 * SECOND;
-const SECOND = 1 * MILLIS;
 const MILLIS = 1000;
+const SECOND = 1 * MILLIS;
+const MINUTE = 60 * SECOND;
+const HOUR = 60 * MINUTE;
 
 const WAIT_HCAPTCHA = 5 * SECOND;
 const WAIT_ELEMENT = 3 * SECOND;
