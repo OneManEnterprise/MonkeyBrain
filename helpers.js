@@ -14,8 +14,8 @@ const ADDR_SOLANA ="3knrCxQPrjaDrX87uAbGmzLL2GcEGAntddeQWqAwCTuY";
 const ADDR_ZCASH ="t1XmjzKxe1ndY6sruWrBu828j4XESfq22FA";
 
 //CRYPTO
+const BCH = "bitcoincash";
 const BTC = "bitcoin";
-const BCH = "bitcoin_cash";
 const DASH = "dash";
 const DOGE = "dogecoin";
 const ETH = "ethereum";
@@ -32,7 +32,9 @@ let coinMap = new Map([
   [LTC, ADDR_LITECOIN],
   [SOL, ADDR_SOLANA],
   [ZEC, ADDR_ZCASH],
-])
+]);
+
+function isBitcoinCash(string){return string.includes("bitcoin") && string.includes("cash")}
 
 //QUERIES
 const Q_HCAPTCHA = "iframe[data-hcaptcha-widget-id]";
