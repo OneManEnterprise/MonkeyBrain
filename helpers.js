@@ -87,6 +87,13 @@ function gotoUrl(url){window.location.href = url}
 function elapsedTime(startTimer){return Math.round((performance.now() - startTimer))}
 function isItTime(startTimer, interval){return elapsedTime(startTimer) > interval}
 function isClaimTime(elapsed, cooldown){ return elapsed < 0 || isItTime(elapsed, cooldown)};
+function isClaimableByObjectUrl(obj, cooldown){
+    let currentUrl = window.location.href;
+    let currentUrlTimer = obj[currentUrl];
+    let isClaimable = isClaimTime(currentUrlTimer, cooldown);
+
+    return isClaimable;
+}
 
 function sortSmallerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[a]-obj[b]})}
 function sortBiggerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[b]-obj[a]})}
@@ -95,14 +102,12 @@ function click(query){qqSelect(query).then(element => {element.click()})}
 function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
 async function qqSelect(query){
-    console.debug("query: " + query);
-
     let element;
     while(!element){
         element = qSelect(query);
         await wait(WAIT_ELEMENT);
     }
-    console.debug("element: " + element);
+    console.info("element: " + element);
     return element;
 }
 
@@ -121,30 +126,29 @@ function finish(hostname, obj){
 
 function updateObj(hostname, obj){
     let currentUrl = window.location.href;
-    console.debug("currentUrl: " + currentUrl);
-
     obj[currentUrl] = performance.now();
+  
     GM_setValue(hostname, obj);
 }
+
 function gotoNextUrl(obj){
     let nextUrl =sortSmallerFirst(obj).pop();
-    console.debug("nextUrl: " + nextUrl);
     gotoUrl(nextUrl);
+}
+
+function scrollIntoMidView(element) {
+    const elementRect = element.getBoundingClientRect();
+    const scrollTopOfElement = elementRect.top + elementRect.height / 2;
+    const scrollY = scrollTopOfElement - (window.innerHeight / 2);
+    window.scrollTo(0, scrollY);
 }
 
 String.prototype.nthLastIndexOf = function(searchString, n){
       if(this === null) return -1;
-      if(!n || isNaN(n) || n <= 1)return this.lastIndexOf(searchString);
+      if(!n || isNaN(n) || n <= 1) return this.lastIndexOf(searchString);
       return this.lastIndexOf(searchString, this.nthLastIndexOf(searchString, --n) - 1);
 }
 
 //const addCSS = css => {document.head.appendChild(document.createElement("style")).innerHTML=css};
 //const css = "outline:green solid 10px;";
 //const notcss = "outline:white;";
-
-function scrollIntoMidView(element) {
-        const elementRect = element.getBoundingClientRect();
-        const scrollTopOfElement = elementRect.top + elementRect.height / 2;
-        const scrollY = scrollTopOfElement - (window.innerHeight / 2);
-        window.scrollTo(0, scrollY);
-}
