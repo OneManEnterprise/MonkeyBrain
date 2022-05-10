@@ -84,6 +84,13 @@ function isAtUrl(url){ return window.location.href == url}
 function isIncludedInUrl(url){ return window.location.href.includes(url)}
 function gotoUrl(url){window.location.href = url}
 
+function elapsedTime(startTimer){return Math.round((performance.now() - startTimer))}
+function isItTime(startTimer, interval){return elapsedTime(startTimer) > interval}
+function isClaimTime(elapsed, cooldown){ return elapsed < 0 || isItTime(elapsed, cooldown)};
+
+function sortSmallerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[a]-obj[b]})}
+function sortBiggerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[b]-obj[a]})}
+
 function click(query){qqSelect(query).then(element => {element.click()})}
 function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
@@ -105,6 +112,24 @@ async function waitHCaptcha(){
         await wait(WAIT_HCAPTCHA);
         console.log("waiting hcaptcha response " + WAIT_HCAPTCHA/MILLIS + "s");
     }
+}
+
+function finish(hostname, obj){
+    updateObj(hostname, obj);
+    gotoNextUrl(obj);
+}
+
+function updateObj(hostname, obj){
+    let currentUrl = window.location.href;
+    console.debug("currentUrl: " + currentUrl);
+
+    obj[currentUrl] = performance.now();
+    GM_setValue(hostname, obj);
+}
+function gotoNextUrl(obj){
+    let nextUrl =sortSmallerFirst(obj).pop();
+    console.debug("nextUrl: " + nextUrl);
+    gotoUrl(nextUrl);
 }
 
 String.prototype.nthLastIndexOf = function(searchString, n){
