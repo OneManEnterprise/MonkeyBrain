@@ -31,7 +31,7 @@ const DOGE = "doge";
 const ETH = "eth";
 const LTC = "ltc";
 const SOL = "sol";
-const ZEC = "ZEC";
+const ZEC = "zec";
 
 let coinMap = new Map([
   [COIN_BTC, ADDR_BITCOIN],
