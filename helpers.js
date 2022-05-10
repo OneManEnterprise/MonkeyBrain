@@ -145,10 +145,10 @@ function scrollIntoMidView(element) {
 
 String.prototype.nthLastIndexOf = function(searchString, n){
     if(this === null) return -1;
-    if(typeof(this) != "string") return -1;
+    //if(typeof(this) != "string") return -1;
     if(!n || isNaN(n) || n <= 1) return this.lastIndexOf(searchString);
     return this.lastIndexOf(searchString, this.nthLastIndexOf(searchString, --n) - 1);
-}
+};
 
 //const addCSS = css => {document.head.appendChild(document.createElement("style")).innerHTML=css};
 //const css = "outline:green solid 10px;";
