@@ -87,7 +87,7 @@ function gotoUrl(url){window.location.href = url}
 function elapsedTime(startTimer){return Math.round((performance.now() - startTimer))}
 function isItTime(startTimer, interval){return elapsedTime(startTimer) > interval}
 function isClaimTime(elapsed, cooldown){ return elapsed < 0 || isItTime(elapsed, cooldown)};
-function isClaimableByObjectUrl(obj, cooldown){
+function isClaimable(obj, cooldown){
     let currentUrl = window.location.href;
     let currentUrlTimer = obj[currentUrl];
     let isClaimable = isClaimTime(currentUrlTimer, cooldown);
