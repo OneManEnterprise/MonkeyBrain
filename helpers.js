@@ -55,15 +55,15 @@ let coinMap = new Map([
 
 function isBitcoinCash(string){return string.includes("bitcoin") && string.includes("cash")}
 
-//QUERIES
+//SELECTORS
 const Q_HCAPTCHA = "iframe[data-hcaptcha-widget-id]";
 const Q_BTN = "button";
 const Q_IN = "input";
 const Q_ADDR = "[name='address']";
 const Q_SUB = "[type='submit']";
 
+//QUERIES
 const Q_BTN_SUB = Q_BTN + Q_SUB;
-//const Q_BTN_ID_SUB = Q_BTN + Q_ID_SUB;
 const Q_IN_SUB = Q_IN + Q_SUB;
 
 //IDS
@@ -75,6 +75,7 @@ const SECOND = 1 * MILLIS;
 const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
 
+//WAITS
 const WAIT_HCAPTCHA = 5 * SECOND;
 const WAIT_ELEMENT = 3 * SECOND;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,6 +84,7 @@ function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 function isAtUrl(url){ return window.location.href == url}
 function isIncludedInUrl(url){ return window.location.href.includes(url)}
 function gotoUrl(url){window.location.href = url}
+function getNextUrl(dataObj){return sortSmallerFirst(dataObj.obj).pop()}
 
 //timer is -1 or stored performance.now()
 function elapsedTime(startTimer){return Math.round((performance.now() - startTimer))}
@@ -98,22 +100,16 @@ function isClaimable(persistentObj){
   return isClaimable;
 }
 
-function updateData(oldObj){
+function getData(oldObj){
   let storedObj = GM_getValue(oldObj.name);
   if(storedObj) return storedObj;
   return oldObj;
 }
-
-function finish(dataObj){
-  let obj = dataObj.obj;
-  let currentUrl = window.location.href;
-
-  obj[currentUrl] = performance.now();
-  
+function setData(dataObj){
+  dataObj.obj[ window.location.href] = performance.now();
   GM_setValue(dataObj.name, dataObj);
-
-  window.location.href = sortSmallerFirst(obj).pop();
 }
+
 
 function sortSmallerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[a]-obj[b]})}
 function sortBiggerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[b]-obj[a]})}
