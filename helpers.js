@@ -86,13 +86,27 @@ function gotoUrl(url){window.location.href = url}
 
 function elapsedTime(startTimer){return Math.round((performance.now() - startTimer))}
 function isItTime(startTimer, interval){return elapsedTime(startTimer) > interval}
-function isClaimTime(elapsed, cooldown){ return elapsed < 0 || isItTime(elapsed, cooldown)};
-function isClaimable(obj, cooldown){
-    let currentUrl = window.location.href;
-    let currentUrlTimer = obj[currentUrl];
-    let isClaimable = isClaimTime(currentUrlTimer, cooldown);
+//function isClaimTime(elapsed, cooldown){ return elapsed < 0 || isItTime(elapsed, cooldown)}
+//timer is -1 or stored performance.now()
+function isClaimTime(startTimer, cooldown){return startTimer < 0 || elapsedTime(startTimer) > cooldown}
 
-    return isClaimable;
+function isClaimable(persistentObj){
+  let obj = persistentObj.obj;
+  let cooldown = persistentObj.cooldown;
+  let currentUrl = window.location.href;
+  let currentUrlTimer = obj[currentUrl];
+  let isClaimable =  isClaimTime(currentUrlTimer, cooldown);
+
+  return isClaimable;
+}
+
+//TODEL
+function isClaimable(obj, cooldown){
+  let currentUrl = window.location.href;
+  let currentUrlTimer = obj[currentUrl];
+  let isClaimable = isClaimTime(currentUrlTimer, cooldown);
+
+  return isClaimable;
 }
 
 function sortSmallerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[a]-obj[b]})}
@@ -102,52 +116,61 @@ function click(query){qqSelect(query).then(element => {element.click()})}
 function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
 async function qqSelect(query){
-    let element;
-    while(!element){
-        element = qSelect(query);
-        await wait(WAIT_ELEMENT);
-    }
-    console.info("element: " + element);
-    return element;
+  let element;
+  while(!element){
+      element = qSelect(query);
+      await wait(WAIT_ELEMENT);
+  }
+  console.info("element: " + element);
+  return element;
 }
 
 async function waitHCaptcha(){
-    let hcaptcha = await qqSelect(Q_HCAPTCHA);
-    while(hcaptcha.getAttribute("data-hcaptcha-response").length < 1){
-        await wait(WAIT_HCAPTCHA);
-        console.log("waiting hcaptcha response " + WAIT_HCAPTCHA/MILLIS + "s");
-    }
+  let hcaptcha = await qqSelect(Q_HCAPTCHA);
+  while(hcaptcha.getAttribute("data-hcaptcha-response").length < 1){
+      await wait(WAIT_HCAPTCHA);
+      console.log("waiting hcaptcha response " + WAIT_HCAPTCHA/MILLIS + "s");
+  }
 }
+function finish(dataObj){
+  let obj = dataObj.obj;
+  let currentUrl = window.location.href;
 
-function finish(hostname, obj){
-    updateObj(hostname, obj);
-    gotoNextUrl(obj);
-}
-
-function updateObj(hostname, obj){
-    let currentUrl = window.location.href;
-    obj[currentUrl] = performance.now();
+  obj[currentUrl] = performance.now();
   
-    GM_setValue(hostname, obj);
+  GM_setValue(dataObj.name, dataObj);
+
+  window.location.href = sortSmallerFirst(obj).pop();
 }
 
+//TODEL
+function finish(hostname, obj){
+  updateObj(hostname, obj);
+  gotoNextUrl(obj);
+}
+function updateObj(hostname, obj){
+  let currentUrl = window.location.href;
+  obj[currentUrl] = performance.now();
+
+  GM_setValue(hostname, obj);
+}
 function gotoNextUrl(obj){
-    let nextUrl =sortSmallerFirst(obj).pop();
-    gotoUrl(nextUrl);
+  let nextUrl =sortSmallerFirst(obj).pop();
+  gotoUrl(nextUrl);
 }
 
 function scrollIntoMidView(element) {
-    const elementRect = element.getBoundingClientRect();
-    const scrollTopOfElement = elementRect.top + elementRect.height / 2;
-    const scrollY = scrollTopOfElement - (window.innerHeight / 2);
-    window.scrollTo(0, scrollY);
+  const elementRect = element.getBoundingClientRect();
+  const scrollTopOfElement = elementRect.top + elementRect.height / 2;
+  const scrollY = scrollTopOfElement - (window.innerHeight / 2);
+  window.scrollTo(0, scrollY);
 }
 
 String.prototype.nthLastIndexOf = function(searchString, n){
-    if(this === null) return -1;
-    //if(typeof(this) != "string") return -1;
-    if(!n || isNaN(n) || n <= 1) return this.lastIndexOf(searchString);
-    return this.lastIndexOf(searchString, this.nthLastIndexOf(searchString, --n) - 1);
+  if(this === null) return -1;
+  //if(typeof(this) != "string") return -1;
+  if(!n || isNaN(n) || n <= 1) return this.lastIndexOf(searchString);
+  return this.lastIndexOf(searchString, this.nthLastIndexOf(searchString, --n) - 1);
 };
 
 //const addCSS = css => {document.head.appendChild(document.createElement("style")).innerHTML=css};
