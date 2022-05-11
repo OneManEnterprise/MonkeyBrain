@@ -84,12 +84,10 @@ function isAtUrl(url){ return window.location.href == url}
 function isIncludedInUrl(url){ return window.location.href.includes(url)}
 function gotoUrl(url){window.location.href = url}
 
+//timer is -1 or stored performance.now()
 function elapsedTime(startTimer){return Math.round((performance.now() - startTimer))}
 function isItTime(startTimer, interval){return elapsedTime(startTimer) > interval}
-//function isClaimTime(elapsed, cooldown){ return elapsed < 0 || isItTime(elapsed, cooldown)}
-//timer is -1 or stored performance.now()
 function isClaimTime(startTimer, cooldown){return startTimer < 0 || elapsedTime(startTimer) > cooldown}
-
 function isClaimable(persistentObj){
   let obj = persistentObj.obj;
   let cooldown = persistentObj.cooldown;
@@ -100,13 +98,21 @@ function isClaimable(persistentObj){
   return isClaimable;
 }
 
-//TODEL
-function isClaimable(obj, cooldown){
-  let currentUrl = window.location.href;
-  let currentUrlTimer = obj[currentUrl];
-  let isClaimable = isClaimTime(currentUrlTimer, cooldown);
+function updateData(oldObj){
+  let storedObj = GM_getValue(oldObj.name);
+  if(storedObj) return storedObj;
+  return oldObj;
+}
 
-  return isClaimable;
+function finish(dataObj){
+  let obj = dataObj.obj;
+  let currentUrl = window.location.href;
+
+  obj[currentUrl] = performance.now();
+  
+  GM_setValue(dataObj.name, dataObj);
+
+  window.location.href = sortSmallerFirst(obj).pop();
 }
 
 function sortSmallerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[a]-obj[b]})}
@@ -131,32 +137,6 @@ async function waitHCaptcha(){
       await wait(WAIT_HCAPTCHA);
       console.log("waiting hcaptcha response " + WAIT_HCAPTCHA/MILLIS + "s");
   }
-}
-function finish(dataObj){
-  let obj = dataObj.obj;
-  let currentUrl = window.location.href;
-
-  obj[currentUrl] = performance.now();
-  
-  GM_setValue(dataObj.name, dataObj);
-
-  window.location.href = sortSmallerFirst(obj).pop();
-}
-
-//TODEL
-function finish(hostname, obj){
-  updateObj(hostname, obj);
-  gotoNextUrl(obj);
-}
-function updateObj(hostname, obj){
-  let currentUrl = window.location.href;
-  obj[currentUrl] = performance.now();
-
-  GM_setValue(hostname, obj);
-}
-function gotoNextUrl(obj){
-  let nextUrl =sortSmallerFirst(obj).pop();
-  gotoUrl(nextUrl);
 }
 
 function scrollIntoMidView(element) {
