@@ -106,7 +106,8 @@ function getData(oldObj){
   return oldObj;
 }
 function setData(dataObj){
-  dataObj.obj[ window.location.href] = Date.now();
+  //TODO this will blow up eventually -> window.location.href may be != than the stored url in obj 
+  dataObj.obj[window.location.href] = Date.now();
   GM_setValue(dataObj.name, dataObj);
 }
 
