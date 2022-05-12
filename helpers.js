@@ -86,8 +86,8 @@ function isIncludedInUrl(url){ return window.location.href.includes(url)}
 function gotoUrl(url){window.location.href = url}
 function getNextUrl(dataObj){return sortSmallerFirst(dataObj.obj).pop()}
 
-//timer is -1 or stored performance.now()
-function elapsedTime(startTimer){return Math.round((performance.now() - startTimer))}
+//timer is -1 or stored Date.now()
+function elapsedTime(startTimer){return Math.round((Date.now() - startTimer))}
 function isItTime(startTimer, interval){return elapsedTime(startTimer) > interval}
 function isClaimTime(startTimer, cooldown){return startTimer < 0 || elapsedTime(startTimer) > cooldown}
 function isClaimable(persistentObj){
@@ -106,7 +106,7 @@ function getData(oldObj){
   return oldObj;
 }
 function setData(dataObj){
-  dataObj.obj[ window.location.href] = performance.now();
+  dataObj.obj[ window.location.href] = Date.now();
   GM_setValue(dataObj.name, dataObj);
 }
 
