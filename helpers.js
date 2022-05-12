@@ -82,7 +82,7 @@ const WAIT_ELEMENT = 3 * SECOND;
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function isAtUrl(url){ return window.location.href == url}
-function isIncludedInUrl(url){ return window.location.href.includes(url)}
+function urlIncludes(regex){ return window.location.href.includes(regex)}
 function gotoUrl(url){window.location.href = url}
 function getNextUrl(dataObj){return sortSmallerFirst(dataObj.obj).pop()}
 
