@@ -86,6 +86,15 @@ const HOUR = 60 * MINUTE;
 //WAITS
 const WAIT_HCAPTCHA = 5 * SECOND;
 const WAIT_ELEMENT = 3 * SECOND;
+
+//DEFAULTS
+const HOST = window.location.host;
+let persistentObj = {
+    name: "NAME",
+    obj: {},
+    cooldown: 1,
+    updated: false,
+};
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
