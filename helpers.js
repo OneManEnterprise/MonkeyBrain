@@ -64,13 +64,14 @@ let coinMap = new Map([
 ]);
 
 //SELECTORS
-const Q_HCAPTCHA = "iframe[data-hcaptcha-widget-id]";
 const Q_BTN = "button";
 const Q_IN = "input";
 const Q_ADDR = "[name='address']";
 const Q_SUB = "[type='submit']";
+const Q_TXT = "[type='text']";
 
 //QUERIES
+const Q_HCAPTCHA = "iframe[data-hcaptcha-widget-id]";
 const Q_BTN_SUB = Q_BTN + Q_SUB;
 const Q_IN_SUB = Q_IN + Q_SUB;
 
