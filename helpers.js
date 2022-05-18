@@ -114,6 +114,12 @@ let persistentObj = {
     updated: false,
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+function setPersistentObj(obj){
+  persistentObj.name = HOST;
+  persistentObj.cooldown = HOUR;
+  persistentObj.obj = obj;
+}
+
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function isBitcoinCash(string){return string.includes("bitcoin") && string.includes("cash")}
@@ -153,6 +159,7 @@ function setData(dataObj){
   GM_setValue(dataObj.name, dataObj);
 }
 
+function select(value){qSelect("option[value=" + value + "]").selected = true}
 function click(query){qqSelect(query).then(element => {element.click()})}
 function qSelect(query){return document.querySelector(query)}
 function qSelectAll(query){return document.querySelectorAll(query)}
@@ -172,6 +179,15 @@ async function waitHCaptcha(){
       console.log("waiting hcaptcha response " + WAIT_HCAPTCHA/MILLIS + "s");
       await wait(WAIT_HCAPTCHA);
   }
+}
+
+async function inputText(value){
+  const addr = await qqSelect(Q_TYPE_TXT);
+  addr.value = value;
+}
+async function textSubmit(textValue){
+  await inputText(textValue);
+  await click(Q_TYPE_SUB);
 }
 
 function scrollIntoMidView(element) {
