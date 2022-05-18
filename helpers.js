@@ -63,6 +63,23 @@ let coinMap = new Map([
   [FEY, ADDR_FEYORRA],
 ]);
 
+//FAUCETPAY WITHDRAWAL
+const FEES = {
+  ZEC: 0.00000500, // 0.0005 cents
+  DASH:0.00005000, // 0.002 cents
+  LTC: 0.00005000, // 0.003 cents
+  SOL: 0.00050000, // 0.03 cents
+  BCH: 0.00010000, // 0.02 cents
+  DOGE:1.00000000, // 0.09 cents
+  BNB: 0.00064000, // 0.19 cents TRY
+  BTC: 0.00001000, // 0.29 cents
+  FEY: 1000.00000, // 2.525 eur 
+  ETH: 0.01000000, // 19.81 eur
+  TRX: 0.00000000, // unknown
+  USDT:0.01000000, // unknown
+  DGB: 0.01000000, // unknown
+}
+
 //SELECTORS
 const Q_BTN = "button";
 const Q_IN = "input";
@@ -150,8 +167,8 @@ async function qqSelect(query){
 async function waitHCaptcha(){
   let hcaptcha = await qqSelect(Q_HCAPTCHA);
   while(hcaptcha.getAttribute("data-hcaptcha-response").length < 1){
-      await wait(WAIT_HCAPTCHA);
       console.log("waiting hcaptcha response " + WAIT_HCAPTCHA/MILLIS + "s");
+      await wait(WAIT_HCAPTCHA);
   }
 }
 
