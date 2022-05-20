@@ -107,17 +107,16 @@ const WAIT_ELEMENT = 3 * SECOND;
 
 //DEFAULTS
 const HOST = window.location.host;
-let persistentObj = {
-    name: "NAME",
+const MAX = Number.MAX_SAFE_INTEGER;
+let dataObj = {
+    name: "DATA",
     obj: {},
-    cooldown: 1,
+    cooldown: MAX,
     updated: false,
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 function setPersistentObj(obj){
-  persistentObj.name = HOST;
-  persistentObj.cooldown = HOUR;
-  persistentObj.obj = obj;
+  dataObj.obj = obj;
 }
 
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
