@@ -110,21 +110,23 @@ const HOST = window.location.host;
 const DATANAME = "DATA";
 const MAX = Number.MAX_SAFE_INTEGER;
 const DAY = new Date(Date.now()).getDate();
-let dataObj = {
+const DATA_OBJ = {
     name: DATANAME,
     obj: {},
     day: DAY,
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-function setPersistentObj(obj){
-  dataObj.obj = obj;
-}
+function getData(){return GM_getValue(DATA_OBJ.name)}
+function setData(dataObj){GM_setValue(dataObj.name, dataObj)}
 
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function isBitcoinCash(string){return string.includes("bitcoin") && string.includes("cash")}
 
 function randomInt(min=0, max=2){return Math.floor(Math.random() * (max - min)) + min}
+ 
+function isDataRecent(){return GM_getValue(DATA_OBJ.name).day == DAY}
+
 
 function sortSmallerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[a]-obj[b]})}
 function sortBiggerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[b]-obj[a]})}
@@ -148,16 +150,6 @@ function isClaimable(persistentObj){
   return isClaimable;
 }
 
-function getData(oldObj){
-  let storedObj = GM_getValue(oldObj.name);
-  if(storedObj) return storedObj;
-  return oldObj;
-}
-function setData(dataObj){
-  //TODO this will blow up eventually -> window.location.href may be != than the stored url in obj 
-  dataObj.obj[window.location.href] = Date.now();
-  GM_setValue(dataObj.name, dataObj);
-}
 
 function select(value){qSelect("option[value=" + value + "]").selected = true}
 function click(query){qqSelect(query).then(element => {element.click()})}
