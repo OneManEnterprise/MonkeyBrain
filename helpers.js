@@ -107,12 +107,13 @@ const WAIT_ELEMENT = 3 * SECOND;
 
 //DEFAULTS
 const HOST = window.location.host;
+const DATANAME = "DATA";
 const MAX = Number.MAX_SAFE_INTEGER;
+const DAY = new Date(Date.now()).getDate();
 let dataObj = {
-    name: "DATA",
+    name: DATANAME,
     obj: {},
-    cooldown: MAX,
-    updated: false,
+    day: DAY,
 };
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 function setPersistentObj(obj){
