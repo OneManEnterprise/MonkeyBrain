@@ -115,7 +115,19 @@ const DATA_OBJ = {
     obj: {},
     day: DAY,
 };
+
+let hostObj;
+let storedObj = getData();
+let nextObj;
+let startupTime = performance.now();
+let startupOk = false;
+let scriptOk = false;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+async function handleWebsites(websiteScript){
+  await startup();
+  if(startupOk) await websiteScript();
+  await endup();
+}
 function getData(){return GM_getValue(DATA_OBJ.name)}
 function setData(dataObj){GM_setValue(dataObj.name, dataObj)}
 
@@ -124,9 +136,9 @@ function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 function isBitcoinCash(string){return string.includes("bitcoin") && string.includes("cash")}
 
 function randomInt(min=0, max=2){return Math.floor(Math.random() * (max - min)) + min}
- 
-function isDataRecent(){return GM_getValue(DATA_OBJ.name).day == DAY}
 
+function isDataRecent(dataObj){return dataObj.day == DAY}
+function isDataRecent(){return GM_getValue(DATA_OBJ.name).day == DAY}
 
 function sortSmallerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[a]-obj[b]})}
 function sortBiggerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[b]-obj[a]})}
