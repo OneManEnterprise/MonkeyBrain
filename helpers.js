@@ -110,14 +110,26 @@ const HOST = window.location.host;
 const DATANAME = "DATA";
 const MAX = Number.MAX_SAFE_INTEGER;
 const DAY = new Date(Date.now()).getDate();
+const STORED_DATA_OBJ = getData();
 const DATA_OBJ = {
     name: DATANAME,
     obj: {},
     day: DAY,
 };
 
+const DEFAULT_WEBSITE_OBJ = {
+  name:HOST,
+  claims:0,
+  lastclaim:-1,
+  maxclaims:-1,
+  cooldown:-1,
+  executiontime:0,
+  //TODO getCoinByHOST()
+  coin: BTC,
+  script: function(){},
+};
+
 let hostObj;
-let storedObj = getData();
 let nextObj;
 let startupTime = performance.now();
 let startupOk = false;
@@ -130,6 +142,9 @@ async function handleWebsites(websiteScript){
 }
 function getData(){return GM_getValue(DATA_OBJ.name)}
 function setData(dataObj){GM_setValue(dataObj.name, dataObj)}
+
+function setupObj(obj){overrideObj(obj); return DEFAULT_OBJ}
+function overrideObj(obj){Object.entries(obj).forEach(kv => {DEFAULT_OBJ[kv[0]] = kv[1]})}
 
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
