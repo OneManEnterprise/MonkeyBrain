@@ -130,11 +130,17 @@ function isDataRecent(){return GM_getValue(DATA_OBJ.name).day == DAY}
 
 function sortSmallerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[a]-obj[b]})}
 function sortBiggerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[b]-obj[a]})}
+function sortObject(obj, callback){return Object.fromEntries(Object.entries(obj).sort(([key, val]) => callback(val, key)))}
+function sortClaims(obj){return obj.cooldown - (Date.now() - obj.lastclaim)}
+function filterObject(obj, callback) {return Object.fromEntries(Object.entries(obj).filter(([key, val]) => callback(val, key)))}
+function filterClaims(obj){return obj.maxclaims > obj.claims && (obj.lastclaim == -1 || obj.lastClaim >= obj.cooldown)}
+function getFirstSorted(obj, callback){return Object.entries(obj).sort( ([key, val]) => callback(val, key) )[0][1]}
+function getNextObj(obj){return getFirstSorted(filterObject(objs, filterClaims), sortClaims)}
 
 function isAtUrl(url){ return window.location.href == url}
 function urlIncludes(regex){ return window.location.href.includes(regex)}
 function gotoUrl(url){window.location.href = url}
-function getNextUrl(dataObj){return sortSmallerFirst(dataObj.obj).pop()}
+//function getNextUrl(dataObj){return sortSmallerFirst(dataObj.obj).pop()}
 
 //timer is -1 or stored Date.now()
 function elapsedTime(startTimer){return Math.round((Date.now() - startTimer))}
