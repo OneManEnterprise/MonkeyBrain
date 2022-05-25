@@ -111,6 +111,8 @@ const DATANAME = "DATA";
 const MAX = Number.MAX_SAFE_INTEGER;
 const DAY = new Date(Date.now()).getDate();
 const STORED_DATA_OBJ = getData();
+const STORED_HOST_OBJ = STORED_OBJ[HOST];
+
 const DATA_OBJ = {
     name: DATANAME,
     obj: {},
