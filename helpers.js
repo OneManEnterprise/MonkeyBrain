@@ -120,8 +120,8 @@ const STORED_OBJ = GM_getValue(DATANAME);
 //const STORED_HOST_OBJ = STORED_OBJ[HOST];
 
 //const CURRENT_OBJ = HOST_OBJ;
-const CURRENT_OBJ = {}
-const NEXT_OBJ = {}
+//const CURRENT_OBJ = {}
+let nextObj = {}
 const DATA_OBJ = {
     name: DATANAME,
     obj: {},
@@ -146,10 +146,10 @@ let scriptOk = false;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-function getData(){return GM_getValue(DATANAME)}
 function setData(){GM_setValue(DATANAME, DATA_OBJ)}
 function setData(dataObj){GM_setValue(dataObj.name, dataObj)}
-function getData(name){return GM_getValue(name)}
+function getData(name = DATANAME){return GM_getValue(name)}
+//function getData(){return GM_getValue(DATANAME)}
 
 function setupObj(obj){overrideObj(obj); return DEFAULT_OBJ}
 function overrideObj(obj){Object.entries(obj).forEach(kv => {DEFAULT_OBJ[kv[0]] = kv[1]})}
@@ -160,8 +160,8 @@ function isBitcoinCash(string){return string.includes("bitcoin") && string.inclu
 
 function randomInt(min=0, max=2){return Math.floor(Math.random() * (max - min)) + min}
 
-function isDataRecent(dataObj){return dataObj.day == DAY}
-function isDataRecent(){return GM_getValue(DATA_OBJ.name).day == DAY}
+//function isDataRecent(){return DATA_OBJ.day == DAY}
+function isDataRecent(dataObj=DATA_OBJ){return dataObj.day == DAY}
 
 function sortSmallerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[a]-obj[b]})}
 function sortBiggerFirst(obj){return Object.keys(obj).sort(function(a,b){ return obj[b]-obj[a]})}
