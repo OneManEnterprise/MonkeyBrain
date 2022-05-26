@@ -111,7 +111,8 @@ const DATANAME = "DATA";
 const MAX = Number.MAX_SAFE_INTEGER;
 const DAY = new Date(Date.now()).getDate();
 
-const STORED_DATA_OBJ = getData();
+//const STORED_DATA_OBJ = getData();
+const STORED_DATA_OBJ = GM_getValue(DATANAME);
 const STORED_HOST_OBJ = STORED_OBJ[HOST];
 //TODEL THIS RUNS B4 TAMPERMONKEY PROLLY
 //const HOST_OBJ = DEFAULT_WEBSITES_OBJS[HOST];
@@ -146,8 +147,11 @@ async function handleWebsites(websiteScript){
   if(startupOk) await websiteScript();
   await endup();
 }
+
 function getData(){return GM_getValue(DATANAME)}
+function setData(){GM_setValue(DATANAME, DATA_OBJ)}
 function setData(dataObj){GM_setValue(dataObj.name, dataObj)}
+function getData(name){return GM_getValue(name)}
 
 function setupObj(obj){overrideObj(obj); return DEFAULT_OBJ}
 function overrideObj(obj){Object.entries(obj).forEach(kv => {DEFAULT_OBJ[kv[0]] = kv[1]})}
