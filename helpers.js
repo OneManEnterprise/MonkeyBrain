@@ -146,7 +146,7 @@ async function handleWebsites(websiteScript){
   if(startupOk) await websiteScript();
   await endup();
 }
-function getData(){return GM_getValue(DATA_OBJ.name)}
+function getData(){return GM_getValue(DATANAME)}
 function setData(dataObj){GM_setValue(dataObj.name, dataObj)}
 
 function setupObj(obj){overrideObj(obj); return DEFAULT_OBJ}
