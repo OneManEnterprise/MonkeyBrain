@@ -112,12 +112,16 @@ const MAX = Number.MAX_SAFE_INTEGER;
 const DAY = new Date(Date.now()).getDate();
 
 //const STORED_DATA_OBJ = getData();
-const STORED_DATA_OBJ = GM_getValue(DATANAME);
-const STORED_HOST_OBJ = STORED_OBJ[HOST];
+
+const STORED_OBJ = GM_getValue(DATANAME);
 //TODEL THIS RUNS B4 TAMPERMONKEY PROLLY
 //const HOST_OBJ = DEFAULT_WEBSITES_OBJS[HOST];
+//TODEL U ONLY FETCH HOST STORED IN CASE DATA IS RECENT AND REPLACE IT WITH HOST_OBJ
+//const STORED_HOST_OBJ = STORED_OBJ[HOST];
+
 //const CURRENT_OBJ = HOST_OBJ;
-const CURRENT_OBJ = {};
+const CURRENT_OBJ = {}
+const NEXT_OBJ = {}
 const DATA_OBJ = {
     name: DATANAME,
     obj: {},
@@ -136,9 +140,7 @@ const DEFAULT_WEBSITE_OBJ = {
   script: function(){},
 };
 
-let hostObj;
-let nextObj;
-let startupTime = performance.now();
+const STARTUP_TIME = performance.now();
 let startupOk = false;
 let scriptOk = false;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
