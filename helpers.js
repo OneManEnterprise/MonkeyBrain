@@ -114,9 +114,9 @@ const DAY = new Date(Date.now()).getDate();
 const STORED_DATA_OBJ = getData();
 const STORED_HOST_OBJ = STORED_OBJ[HOST];
 //TODEL THIS RUNS B4 TAMPERMONKEY PROLLY
-const HOST_OBJ = DEFAULT_WEBSITES_OBJS[HOST];
-const CURRENT_OBJ = HOST_OBJ;
-
+//const HOST_OBJ = DEFAULT_WEBSITES_OBJS[HOST];
+//const CURRENT_OBJ = HOST_OBJ;
+const CURRENT_OBJ = {};
 const DATA_OBJ = {
     name: DATANAME,
     obj: {},
