@@ -110,8 +110,12 @@ const HOST = window.location.host;
 const DATANAME = "DATA";
 const MAX = Number.MAX_SAFE_INTEGER;
 const DAY = new Date(Date.now()).getDate();
+
 const STORED_DATA_OBJ = getData();
 const STORED_HOST_OBJ = STORED_OBJ[HOST];
+//TODEL THIS RUNS B4 TAMPERMONKEY PROLLY
+const HOST_OBJ = DEFAULT_WEBSITES_OBJS[HOST];
+const CURRENT_OBJ = HOST_OBJ;
 
 const DATA_OBJ = {
     name: DATANAME,
@@ -184,6 +188,8 @@ function isClaimable(persistentObj){
 
   return isClaimable;
 }
+function isClaimable(){return isClaimTime(DATA_OBJ.obj[HOST].lastClaim, DATA_OBJ.obj[HOST].cooldown)}
+  
 
 function select(value){qSelect("option[value=" + value + "]").selected = true}
 function click(query){qqSelect(query).then(element => {element.click()})}
