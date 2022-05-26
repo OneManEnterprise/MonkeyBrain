@@ -144,11 +144,7 @@ const STARTUP_TIME = performance.now();
 let startupOk = false;
 let scriptOk = false;
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-async function handleWebsites(websiteScript){
-  await startup();
-  if(startupOk) await websiteScript();
-  await endup();
-}
+
 
 function getData(){return GM_getValue(DATANAME)}
 function setData(){GM_setValue(DATANAME, DATA_OBJ)}
