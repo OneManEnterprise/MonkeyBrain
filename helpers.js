@@ -169,7 +169,11 @@ function sortObject(obj, callback){return Object.fromEntries(Object.entries(obj)
 function sortClaims(obj){return obj.cooldown - (Date.now() - obj.lastclaim)}
 function filterObject(obj, callback) {return Object.fromEntries(Object.entries(obj).filter(([key, val]) => callback(val, key)))}
 function filterClaims(obj){return obj.maxclaims > obj.claims && (obj.lastclaim == -1 || obj.lastClaim >= obj.cooldown)}
-function getFirstSorted(obj, callback){return Object.entries(obj).sort( ([key, val]) => callback(val, key) )[0][1]}
+function getFirstSorted(obj, callback){
+  let sorted = Object.entries(obj).sort(([key, val]) => callback(val, key))
+  let firstSorted = sorted[0]
+  return firstSorted[1]
+}
 function getNextObj(dataObj){return getFirstSorted(filterObject(dataObj, filterClaims), sortClaims)}
 
 function isAtUrl(url){ return window.location.href == url}
@@ -190,8 +194,6 @@ function isClaimable(persistentObj){
 
   return isClaimable;
 }
-function isClaimable(){return isClaimTime(DATA_OBJ.obj[HOST].lastClaim, DATA_OBJ.obj[HOST].cooldown)}
-  
 
 function select(value){qSelect("option[value=" + value + "]").selected = true}
 function click(query){qqSelect(query).then(element => {element.click()})}
