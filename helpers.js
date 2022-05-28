@@ -80,6 +80,9 @@ const FEES = {
   DGB: 0.01000000, // unknown
 }
 function includesCoin(string){
+  console.info("#function includesCoin")
+  
+  console.debug("string: " + string)
   if(string.toLowerCase().includes(BTC)) return BTC
   if(string.toLowerCase().includes(BCH)) return BCH
   if(string.toLowerCase().includes(DASH)) return DASH
@@ -136,6 +139,9 @@ const MAX = Number.MAX_SAFE_INTEGER
 const DAY = new Date(Date.now()).getDate()
 
 const STORED_OBJ = GM_getValue(DATANAME)
+console.debug("STORED_OBJ:")
+console.debug(STORED_OBJ)
+
 const DATA_OBJ = {
     name: DATANAME,
     obj: {},
@@ -149,12 +155,12 @@ const DEFAULT_WEBSITE_OBJ = {
   maxclaims:-1,
   cooldown:-1,
   executiontime:0,
-  //TODO getCoinByHOST()
   coin: coinMap.get(includesCoin(HOST)),
   script: function(){},
 }
 
 const STARTUP_TIME = performance.now()
+let waitCooldown = 5 * SECOND
 let startupOk = false
 let scriptOk = false
 let updateOk = false
@@ -163,11 +169,16 @@ let nextObj = {}
 //SCRIPT
 async function handleWebsites(websiteScript){
   await startup()
+  console.debug("startupOk: " + startupOk)
+
   if(startupOk) await websiteScript()
+  console.debug("scriptOk: " + scriptOk)
+  
   await endup()
 }
 function startup(){
   updateLocalData()
+  console.debug("updateOk: " + updateOk)
   if(!updateOk)populateObj()
 
   if(!canClaim()) return
@@ -179,11 +190,12 @@ async function endup(){
   setData()
 
   nextObj = await getNextObj()
-
-  await wait(6 * SECOND)
+  //await wait(6 * SECOND)
+  
   //TODO ORIGIN INSTEAD OF HOST
   window.location.href = "https://" + nextObj.name
 }
+
 function updateLocalData(){
   if(!STORED_OBJ) return
   if(!isDataRecent()) return
@@ -208,8 +220,8 @@ function randomInt(min=0, max=2){return Math.floor(Math.random() * (max - min)) 
 function setData(dataObj = DATA_OBJ){GM_setValue(dataObj.name, dataObj)}
 function getData(name = DATANAME){return GM_getValue(name)}
 
-function isAtUrl(url){return window.location.href == url}
-function urlIncludes(regex){return window.location.href.includes(regex)}
+//function isAtUrl(url){return window.location.href == url}
+//function urlIncludes(regex){return window.location.href.includes(regex)}
 
 function isDataRecent(dataObj=DATA_OBJ){return dataObj.day == DAY}
 
@@ -217,10 +229,12 @@ function isDataRecent(dataObj=DATA_OBJ){return dataObj.day == DAY}
 async function getNextObj(){
   let nextObj = filterSortObj()
   while(!nextObj){
-    console.log("WAITING HOUR")
-    await wait(HOUR)
+    console.log("WAITING: " + waitCooldown)
+    await wait(waitCooldown)
     nextObj = filterSortObj()
   }
+  console.debug("nextObj:")
+  console.debug(nextObj)
   return nextObj
 }
 
@@ -267,6 +281,8 @@ async function qqSelect(query){
       element = qSelect(query)
       await wait(WAIT_ELEMENT)
   }
+  console.debug("element:")
+  console.debug(element)
   return element
 }
 
