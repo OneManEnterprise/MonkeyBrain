@@ -164,6 +164,8 @@ let waitCooldown = 5 * SECOND
 let startupOk = false
 let scriptOk = false
 let updateOk = false
+//TODO check if WEBSITES_OBJ default parameter is always empty bcus of this NECESSARY declaration; else need to remove the default cuz i need to fill this var always after this script loads
+let WEBSITES_OBJ = {}
 let nextObj = {}
 
 //SCRIPT
