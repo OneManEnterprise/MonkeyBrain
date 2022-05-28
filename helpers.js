@@ -133,7 +133,8 @@ const WAIT_HCAPTCHA = 5 * SECOND
 const WAIT_ELEMENT = 3 * SECOND
 
 //DEFAULTS
-const HOST = window.location.host
+//const HOST = window.location.host
+const ORIGIN = window.location.origin
 const DATANAME = "DATA"
 const MAX = Number.MAX_SAFE_INTEGER
 const DAY = new Date(Date.now()).getDate()
@@ -149,13 +150,13 @@ const DATA_OBJ = {
 }
 
 const DEFAULT_WEBSITE_OBJ = {
-  name:HOST,
+  name:ORIGIN,
   claims:0,
   lastclaim:-1,
   maxclaims:-1,
   cooldown:-1,
   executiontime:0,
-  coin: coinMap.get(includesCoin(HOST)),
+  coin: coinMap.get(includesCoin(ORIGIN)),
   script: function(){},
 }
 
@@ -191,11 +192,13 @@ async function endup(){
 
   setData()
 
-  nextObj = await getNextObj()
+  const NEXT_OBJ = await getNextObj()
+  console.debug("NEXT_OBJ:")
+  console.debug(NEXT_OBJ)
+  
   //await wait(6 * SECOND)
   
-  //TODO ORIGIN INSTEAD OF HOST
-  window.location.href = "https://" + nextObj.name
+  window.location.href = NEXT_OBJ.name
 }
 
 function updateLocalData(){
@@ -207,9 +210,9 @@ function updateLocalData(){
 function updateClaim(){
   if(!scriptOk) return
 
-  DATA_OBJ.obj[HOST].lastclaim = Date.now()
-  DATA_OBJ.obj[HOST].claims += 1
-  DATA_OBJ.obj[HOST].executiontime = performance.now() - STARTUP_TIME
+  DATA_OBJ.obj[ORIGIN].lastclaim = Date.now()
+  DATA_OBJ.obj[ORIGIN].claims += 1
+  DATA_OBJ.obj[ORIGIN].executiontime = performance.now() - STARTUP_TIME
 }
 
 //if(!objToPopulate[kv[0]]) objToPopulate[kv[0]] = kv[1]})
@@ -264,8 +267,8 @@ function getFirstSorted(obj, callback){
 
 function elapsedTime(startTimer){return Math.round((Date.now() - startTimer))}
 function canClaim(){
-  if(DATA_OBJ.obj[HOST].claims >= DATA_OBJ.obj[HOST].maxclaims) return false
-  return isClaimTime(DATA_OBJ.obj[HOST])
+  if(DATA_OBJ.obj[ORIGIN].claims >= DATA_OBJ.obj[ORIGIN].maxclaims) return false
+  return isClaimTime(DATA_OBJ.obj[ORIGIN])
 }
 function isClaimTime(obj){
   if(obj.lastclaim < 0) return true
