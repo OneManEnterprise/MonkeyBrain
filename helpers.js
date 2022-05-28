@@ -168,7 +168,7 @@ async function handleWebsites(websiteScript){
 }
 function startup(){
   updateLocalData()
-  if(!updateOk)populateWebsitesObj()
+  if(!updateOk)populateObj()
 
   if(!canClaim()) return
   startupOk = true
@@ -197,10 +197,9 @@ function updateClaim(){
   DATA_OBJ.obj[HOST].claims += 1
   DATA_OBJ.obj[HOST].executiontime = performance.now() - STARTUP_TIME
 }
-function populateObj(objPopulator = DEFAULT_WEBSITE_OBJ, objToPopulate){
-  Object.entries(objPopulator).forEach(kv =>{if(!objToPopulate[kv[0]]) objToPopulate[kv[0]] = kv[1]})
-  return objToPopulate
-}
+
+//if(!objToPopulate[kv[0]]) objToPopulate[kv[0]] = kv[1]})
+function populateObj(obj = DATA_OBJ.obj, objPopulator = WEBSITES_OBJ){Object.entries(objPopulator).forEach(kv => {obj[kv[0]]=kv[1]})}
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
