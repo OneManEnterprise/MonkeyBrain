@@ -271,4 +271,4 @@ String.prototype.nthLastIndexOf = function(searchString, n){
   //if(typeof(this) != "string") return -1
   if(!n || isNaN(n) || n <= 1) return this.lastIndexOf(searchString)
   return this.lastIndexOf(searchString, this.nthLastIndexOf(searchString, --n) - 1)
-}
+};
