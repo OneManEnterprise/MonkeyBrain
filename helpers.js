@@ -150,7 +150,7 @@ const DEFAULT_WEBSITE_OBJ = {
   cooldown:-1,
   executiontime:0,
   //TODO getCoinByHOST()
-  coin: BTC,
+  coin: coinMap.get(includesCoin(HOST)),
   script: function(){},
 }
 
