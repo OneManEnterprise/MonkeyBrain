@@ -174,7 +174,7 @@ function updateClaim(){
   DATA_OBJ.obj[HOST].executiontime = performance.now() - STARTUP_TIME
 }
 function populateObj(objPopulator = DEFAULT_WEBSITE_OBJ, objToPopulate){
-  Object.entries(objPopulator).forEach(kv => { if(!objToPopulate[kv[0]]) objToPopulate[kv[0]] = kv[1]})
+  Object.entries(objPopulator).forEach(kv =>{if(!objToPopulate[kv[0]]) objToPopulate[kv[0]] = kv[1]})
   return objToPopulate
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -187,8 +187,8 @@ function randomInt(min=0, max=2){return Math.floor(Math.random() * (max - min)) 
 function setData(dataObj = DATA_OBJ){GM_setValue(dataObj.name, dataObj)}
 function getData(name = DATANAME){return GM_getValue(name)}
 
-function isAtUrl(url){ return window.location.href == url}
-function urlIncludes(regex){ return window.location.href.includes(regex)}
+function isAtUrl(url){return window.location.href == url}
+function urlIncludes(regex){return window.location.href.includes(regex)}
 
 function isDataRecent(dataObj=DATA_OBJ){return dataObj.day == DAY}
 
@@ -250,7 +250,7 @@ async function qqSelect(query){
 }
 
 async function waitHCaptcha(){
-  let hcaptcha = await qqSelect(Q_HCAPTCHA);
+  let hcaptcha = await qqSelect(Q_HCAPTCHA)
   while(hcaptcha.getAttribute("data-hcaptcha-response").length < 1){
       console.log("waiting hcaptcha response " + WAIT_HCAPTCHA/MILLIS + "s")
       await wait(WAIT_HCAPTCHA)
@@ -268,8 +268,8 @@ async function textSubmit(textValue){
 
 
 String.prototype.nthLastIndexOf = function(searchString, n){
-  if(this === null) return -1;
-  //if(typeof(this) != "string") return -1;
-  if(!n || isNaN(n) || n <= 1) return this.lastIndexOf(searchString);
-  return this.lastIndexOf(searchString, this.nthLastIndexOf(searchString, --n) - 1);
+  if(this === null) return -1
+  //if(typeof(this) != "string") return -1
+  if(!n || isNaN(n) || n <= 1) return this.lastIndexOf(searchString)
+  return this.lastIndexOf(searchString, this.nthLastIndexOf(searchString, --n) - 1)
 }
