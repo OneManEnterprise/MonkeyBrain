@@ -79,6 +79,30 @@ const FEES = {
   USDT:0.01000000, // unknown
   DGB: 0.01000000, // unknown
 }
+function includesCoin(string){
+  if(string.toLowerCase().includes(BTC)) return BTC
+  if(string.toLowerCase().includes(BCH)) return BCH
+  if(string.toLowerCase().includes(DASH)) return DASH
+  if(string.toLowerCase().includes(DOGE)) return DOGE
+  if(string.toLowerCase().includes(ETH)) return ETH
+  if(string.toLowerCase().includes(LTC)) return LTC
+  if(string.toLowerCase().includes(SOL)) return SOL
+  if(string.toLowerCase().includes(ZEC)) return ZEC
+  if(string.toLowerCase().includes(BNB)) return BNB
+  if(string.toLowerCase().includes(FEY)) return FEY
+
+  if(string.toLowerCase().includes("bitcoin") && string.toLowerCase().includes("cash")) return bch
+
+  if(string.toLowerCase().includes(COIN_BTC)) return BTC
+  if(string.toLowerCase().includes(COIN_DASH)) return DASH
+  if(string.toLowerCase().includes(COIN_DOGE)) return DOGE
+  if(string.toLowerCase().includes(COIN_ETH)) return ETH
+  if(string.toLowerCase().includes(COIN_LTC)) return LTC
+  if(string.toLowerCase().includes(COIN_SOL)) return SOL
+  if(string.toLowerCase().includes(COIN_ZEC)) return ZEC
+  if(string.toLowerCase().includes(COIN_BNB)) return BNB
+  if(string.toLowerCase().includes(COIN_FEY)) return FEY
+}
 
 //SELECTORS
 const Q_BTN = "button"
@@ -178,8 +202,6 @@ function populateObj(objPopulator = DEFAULT_WEBSITE_OBJ, objToPopulate){
   return objToPopulate
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-function isBitcoinCash(string){return string.includes("bitcoin") && string.includes("cash")}
-
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function randomInt(min=0, max=2){return Math.floor(Math.random() * (max - min)) + min}
