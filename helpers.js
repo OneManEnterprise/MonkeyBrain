@@ -182,8 +182,11 @@ async function handleWebsites(websiteScript){
 function startup(){
   updateLocalData()
   console.debug("updateOk: " + updateOk)
-  if(!updateOk)populateObj()
-
+  if(!updateOk){
+    //TODO after populateObj populate with default props if !exists   
+    DATA_OBJ.obj[ORIGIN] = DEFAULT_WEBSITE_OBJ;
+    populateObj()
+  }
   if(!canClaim()) return
   startupOk = true
 }
