@@ -182,11 +182,10 @@ async function handleWebsites(websiteScript){
 function startup(){
   updateLocalData()
   console.debug("updateOk: " + updateOk)
-  if(!updateOk){
+  if(!updateOk) populateObjs()
     //TODO after populateObj populate with default props if !exists   
-    DATA_OBJ.obj[ORIGIN] = DEFAULT_WEBSITE_OBJ;
-    populateObj()
-  }
+    //DATA_OBJ.obj[ORIGIN] = DEFAULT_WEBSITE_OBJ;
+    //populateObj()
   if(!canClaim()) return
   startupOk = true
 }
@@ -201,7 +200,7 @@ async function endup(){
   
   //await wait(6 * SECOND)
   
-  window.location.href = NEXT_OBJ.name
+  window.location.href = Object.keys(NEXT_OBJ[0])
 }
 
 function updateLocalData(){
@@ -216,6 +215,17 @@ function updateClaim(){
   DATA_OBJ.obj[ORIGIN].lastclaim = Date.now()
   DATA_OBJ.obj[ORIGIN].claims += 1
   DATA_OBJ.obj[ORIGIN].executiontime = performance.now() - STARTUP_TIME
+}
+function populateObjs(){
+  Object.keys(WEBSITES_OBJ).forEach(key => {
+    Object.entries(DEFAULT_WEBSITE_OBJ).forEach(entry =>{
+      let websiteObj = WEBSITES_OBJ[key]
+      let entryKey = entry[0]
+      let entryValue = entry[1]
+      if(!websiteObj[entryKey])websiteObj[entryKey]= entryValue
+    })
+  })
+  DATA_OBJ.obj = WEBSITES_OBJ
 }
 
 //if(!objToPopulate[kv[0]]) objToPopulate[kv[0]] = kv[1]})
