@@ -150,7 +150,7 @@ const DATA_OBJ = {
 }
 
 const DEFAULT_WEBSITE_OBJ = {
-  name:ORIGIN,
+  //name:ORIGIN,
   claims:0,
   lastclaim:-1,
   maxclaims:-1,
