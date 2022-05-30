@@ -313,7 +313,7 @@ async function waitHCaptcha(){
 }
 
 async function inputText(value){
-  const addr = await qqSelect(Q_TYPE_TXT)
+  const addr = await qqSelect(Q_TXT)
   addr.value = value
 }
 async function textSubmit(textValue){
