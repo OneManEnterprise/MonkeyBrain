@@ -318,7 +318,7 @@ async function inputText(value){
 }
 async function textSubmit(textValue){
   await inputText(textValue)
-  await click(Q_TYPE_SUB)
+  await click(Q_SUB)
 }
 
 String.prototype.nthLastIndexOf = function(searchString, n){
