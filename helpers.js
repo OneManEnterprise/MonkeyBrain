@@ -140,9 +140,8 @@ const MAX = Number.MAX_SAFE_INTEGER
 const DAY = new Date(Date.now()).getDate()
 
 let STORED_OBJ = {}
+let SCRIPT_NAME = ""
 //const STORED_OBJ = GM_getValue(DATANAME)
-//console.debug("STORED_OBJ:")
-//console.debug(STORED_OBJ)
 
 const DATA_OBJ = {
     name: DATANAME,
@@ -173,6 +172,10 @@ let nextObj = {}
 //SCRIPT
 async function handleWebsites(websiteScript){
   STORED_OBJ = getData()
+  console.debug("STORED_OBJ:")
+  console.debug(STORED_OBJ)
+
+  
   await startup()
   console.debug("startupOk: " + startupOk)
 
