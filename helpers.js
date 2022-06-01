@@ -156,8 +156,8 @@ const DEFAULT_WEBSITE_OBJ = {
   maxclaims:-1,
   cooldown:-1,
   executiontime:0,
-  coin: coinMap.get(includesCoin(ORIGIN)),
-  script: function(){},
+  //coin: includesCoin(ORIGIN),
+  //script: function(){},
 }
 
 const STARTUP_TIME = performance.now()
@@ -188,17 +188,21 @@ function startup(){
   updateLocalData()
   console.debug("updateOk: " + updateOk)
   if(!updateOk) populateObjs()
-    //TODO after populateObj populate with default props if !exists   
-    //DATA_OBJ.obj[ORIGIN] = DEFAULT_WEBSITE_OBJ;
-    //populateObj()
+  
+  console.debug("DATA_OBJ:")
+  console.debug(DATA_OBJ)
+  
   if(!canClaim()) return
   startupOk = true
 }
 async function endup(){
-  updateClaim()
-
-  setData()
-
+  if(scriptOk){
+    updateClaim()
+    
+    //TODO save data always?
+    setData()
+  }
+  
   const NEXT_OBJ = await getNextObj()
   console.debug("NEXT_OBJ:")
   console.debug(NEXT_OBJ)
@@ -216,8 +220,6 @@ function updateLocalData(){
   updateOk = true
 }
 function updateClaim(){
-  if(!scriptOk) return
-
   DATA_OBJ.obj[ORIGIN].lastclaim = Date.now()
   DATA_OBJ.obj[ORIGIN].claims += 1
   DATA_OBJ.obj[ORIGIN].executiontime = performance.now() - STARTUP_TIME
