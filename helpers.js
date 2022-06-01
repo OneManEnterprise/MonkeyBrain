@@ -71,18 +71,15 @@ const FEES = {
   SOL: 0.00050000, // 0.03 cents
   BCH: 0.00010000, // 0.02 cents
   DOGE:1.00000000, // 0.09 cents
+  TRX: 2.00000000, // 0.17 cents
   BNB: 0.00064000, // 0.19 cents TRY
   BTC: 0.00001000, // 0.29 cents
   FEY: 1000.00000, // 2.525 eur 
   ETH: 0.01000000, // 19.81 eur
-  TRX: 0.00000000, // unknown
   USDT:0.01000000, // unknown
   DGB: 0.01000000, // unknown
 }
 function includesCoin(string){
-  console.info("#function includesCoin")
-  
-  console.debug("string: " + string)
   if(string.toLowerCase().includes(BTC)) return BTC
   if(string.toLowerCase().includes(BCH)) return BCH
   if(string.toLowerCase().includes(DASH)) return DASH
