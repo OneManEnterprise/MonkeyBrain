@@ -56,7 +56,6 @@ let coinMap = new Map([
   [COIN_FEY, ADDR_FEYORRA],
   [COIN_TRX, ADDR_TRON],
 
-
   [BTC, ADDR_BITCOIN],
   [BCH, ADDR_BITCOINCASH],
   [DASH, ADDR_DASH],
@@ -87,28 +86,32 @@ const FEES = {
   DGB: 0.01000000, // unknown
 }
 function includesCoin(string){
-  if(string.toLowerCase().includes(BTC)) return BTC
-  if(string.toLowerCase().includes(BCH)) return BCH
-  if(string.toLowerCase().includes(DASH)) return DASH
-  if(string.toLowerCase().includes(DOGE)) return DOGE
-  if(string.toLowerCase().includes(ETH)) return ETH
-  if(string.toLowerCase().includes(LTC)) return LTC
-  if(string.toLowerCase().includes(SOL)) return SOL
-  if(string.toLowerCase().includes(ZEC)) return ZEC
-  if(string.toLowerCase().includes(BNB)) return BNB
-  if(string.toLowerCase().includes(FEY)) return FEY
+  string = string.toLowerCase()
+  if(string.includes(BTC)) return BTC
+  if(string.includes(BCH)) return BCH
+  if(string.includes(DASH)) return DASH
+  if(string.includes(DOGE)) return DOGE
+  if(string.includes(ETH)) return ETH
+  if(string.includes(LTC)) return LTC
+  if(string.includes(SOL)) return SOL
+  if(string.includes(ZEC)) return ZEC
+  if(string.includes(BNB)) return BNB
+  if(string.includes(FEY)) return FEY
+  if(string.includes(TRX)) return TRX
+  
+  if(string.includes("bitcoin") && string.includes("cash")) return bch
 
-  if(string.toLowerCase().includes("bitcoin") && string.toLowerCase().includes("cash")) return bch
+  if(string.includes(COIN_BTC)) return BTC
+  if(string.includes(COIN_DASH)) return DASH
+  if(string.includes(COIN_DOGE)) return DOGE
+  if(string.includes(COIN_ETH)) return ETH
+  if(string.includes(COIN_LTC)) return LTC
+  if(string.includes(COIN_SOL)) return SOL
+  if(string.includes(COIN_ZEC)) return ZEC
+  if(string.includes(COIN_BNB)) return BNB
+  if(string.includes(COIN_FEY)) return FEY
+  if(string.includes(COIN_TRX)) return TRX
 
-  if(string.toLowerCase().includes(COIN_BTC)) return BTC
-  if(string.toLowerCase().includes(COIN_DASH)) return DASH
-  if(string.toLowerCase().includes(COIN_DOGE)) return DOGE
-  if(string.toLowerCase().includes(COIN_ETH)) return ETH
-  if(string.toLowerCase().includes(COIN_LTC)) return LTC
-  if(string.toLowerCase().includes(COIN_SOL)) return SOL
-  if(string.toLowerCase().includes(COIN_ZEC)) return ZEC
-  if(string.toLowerCase().includes(COIN_BNB)) return BNB
-  if(string.toLowerCase().includes(COIN_FEY)) return FEY
 }
 
 //SELECTORS
