@@ -171,7 +171,7 @@ let nextObj = {}
 
 //SCRIPT
 async function handleWebsites(websiteScript){
-  STORED_OBJ = getData()
+  STORED_OBJ = getData(SCRIPT_NAME)
   console.debug("STORED_OBJ:")
   console.debug(STORED_OBJ)
 
@@ -213,7 +213,6 @@ async function endup(){
 }
 
 function updateLocalData(){
-  let STORED_OBJ = getData(SCRIPT_NAME)
   if(!STORED_OBJ) return
   if(!isDataRecent()) return
   DATA_OBJ.obj = STORED_OBJ.obj
