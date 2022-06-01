@@ -209,7 +209,7 @@ async function endup(){
 }
 
 function updateLocalData(){
-  let STORED_OBJ = getData(SCRIPTNAME)
+  let STORED_OBJ = getData(SCRIPT_NAME)
   if(!STORED_OBJ) return
   if(!isDataRecent()) return
   DATA_OBJ.obj = STORED_OBJ.obj
