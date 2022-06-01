@@ -14,6 +14,8 @@ const ADDR_SOLANA = "3knrCxQPrjaDrX87uAbGmzLL2GcEGAntddeQWqAwCTuY"
 const ADDR_ZCASH = "t1XmjzKxe1ndY6sruWrBu828j4XESfq22FA"
 const ADDR_BINANCE = "0xAD57fc27a2cF924d4F847298bac75fF65864c9b7"
 const ADDR_FEYORRA = "0xAD57fc27a2cF924d4F847298bac75fF65864c9b7"
+const ADDR_TRON = "0x2fA59Be2Ee252675937e453C5324De1F8849eDb3" // wrong addr but goes to fp anyway
+
 
 //CRYPTO
 const COIN_BCH = "bitcoincash"
@@ -26,6 +28,7 @@ const COIN_SOL = "solana"
 const COIN_ZEC = "zcash"
 const COIN_BNB = "binance"
 const COIN_FEY = "feyorra"
+const COIN_TRX = "tron"
 
 //CRYPTO COIN
 const BTC = "btc"
@@ -38,6 +41,7 @@ const SOL = "sol"
 const ZEC = "zec"
 const BNB = "bnb"
 const FEY = "fey"
+const TRX = "trx"
 
 let coinMap = new Map([
   [COIN_BTC, ADDR_BITCOIN],
@@ -50,6 +54,8 @@ let coinMap = new Map([
   [COIN_ZEC, ADDR_ZCASH],
   [COIN_BNB, ADDR_BINANCE],
   [COIN_FEY, ADDR_FEYORRA],
+  [COIN_TRX, ADDR_TRON],
+
 
   [BTC, ADDR_BITCOIN],
   [BCH, ADDR_BITCOINCASH],
@@ -61,6 +67,7 @@ let coinMap = new Map([
   [ZEC, ADDR_ZCASH],
   [BNB, ADDR_BINANCE],
   [FEY, ADDR_FEYORRA],
+  [TRX, ADDR_TRON],
 ])
 
 //FAUCETPAY WITHDRAWAL
