@@ -139,9 +139,10 @@ const DATANAME = "DATA"
 const MAX = Number.MAX_SAFE_INTEGER
 const DAY = new Date(Date.now()).getDate()
 
-const STORED_OBJ = GM_getValue(DATANAME)
-console.debug("STORED_OBJ:")
-console.debug(STORED_OBJ)
+let STORED_OBJ = {}
+//const STORED_OBJ = GM_getValue(DATANAME)
+//console.debug("STORED_OBJ:")
+//console.debug(STORED_OBJ)
 
 const DATA_OBJ = {
     name: DATANAME,
@@ -171,6 +172,7 @@ let nextObj = {}
 
 //SCRIPT
 async function handleWebsites(websiteScript){
+  STORED_OBJ = getData()
   await startup()
   console.debug("startupOk: " + startupOk)
 
@@ -204,6 +206,7 @@ async function endup(){
 }
 
 function updateLocalData(){
+  let STORED_OBJ = getData(SCRIPTNAME)
   if(!STORED_OBJ) return
   if(!isDataRecent()) return
   DATA_OBJ.obj = STORED_OBJ.obj
@@ -229,14 +232,17 @@ function populateObjs(){
 }
 
 //if(!objToPopulate[kv[0]]) objToPopulate[kv[0]] = kv[1]})
-function populateObj(obj = DATA_OBJ.obj, objPopulator = WEBSITES_OBJ){Object.entries(objPopulator).forEach(kv => {obj[kv[0]]=kv[1]})}
+//function populateObj(obj = DATA_OBJ.obj, objPopulator = WEBSITES_OBJ){Object.entries(objPopulator).forEach(kv => {obj[kv[0]]=kv[1]})}
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 function wait(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function randomInt(min=0, max=2){return Math.floor(Math.random() * (max - min)) + min}
 
-function setData(dataObj = DATA_OBJ){GM_setValue(dataObj.name, dataObj)}
-function getData(name = DATANAME){return GM_getValue(name)}
+function setData(name = SCRIPT_NAME, dataObj = DATA_OBJ){localStorage.setItem(name, JSON.stringify(dataObj))}
+function getData(name = SCRIPT_NAME){return JSON.parse(localStorage.getItem(name))}
+
+//function setData(dataObj = DATA_OBJ){GM_setValue(dataObj.name, dataObj)}
+//function getData(name = DATANAME){return GM_getValue(name)}
 
 //function isAtUrl(url){return window.location.href == url}
 //function urlIncludes(regex){return window.location.href.includes(regex)}
